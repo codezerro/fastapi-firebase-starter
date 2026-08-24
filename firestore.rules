@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // This backend uses the Admin SDK, which bypasses Firestore client security rules.
+    // These rules are for direct client access if your frontend uses Firestore directly.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /items/{itemId} {
+      allow create: if request.auth != null && request.resource.data.owner_uid == request.auth.uid;
+      allow read, update, delete: if request.auth != null && resource.data.owner_uid == request.auth.uid;
+    }
+  }
+}

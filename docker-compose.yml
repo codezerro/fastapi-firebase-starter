@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      PORT: 8080
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/service-account.json
+    volumes:
+      - ${GOOGLE_APPLICATION_CREDENTIALS_HOST:-./service-account.json}:/tmp/service-account.json:ro
