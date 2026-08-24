@@ -46,5 +46,6 @@ RUN chown -R app:app /app
 # Switch to non-root user
 USER app
 
-# Cloud Run automatically injects the PORT environment variable
+
+# Cloud Run automatically injects the PORT environment variable 
 CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]
